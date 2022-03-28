@@ -1,7 +1,7 @@
 # abs-assessment
 Below are step by step guide 
 
-1. tar -xvf abs-guide.tar
+1. Git clone thiis repo and add the tar file this location and execute 'tar -xvf abs-guide.tar'
 
 #Above command untar file 
 
