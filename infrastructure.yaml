@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abs-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: abs-frontend
+  template:
+    metadata: 
+      labels: 
+        app: abs-frontend
+    spec:
+      containers:
+      - name: abs-frontend
+        image: ${IMAGE_NAME}:${IMAGE_TAG}
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "700m"
+          requests:
+            memory: "500Mi"
+            cpu: "200m"
+        ports:
+        - name: web-port
+          containerPort: 8080
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: registrycreds
+      restartPolicy: Always
+apiVersion: v1
+kind: Service
+metadata:
+  name: abs-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: web-port
+  selector:
+    app: abs-frontend
